@@ -86,6 +86,7 @@ class produtoService {
                     mensagem: "Preço deve ser um número maior que zero."
                 }
             }
+
             produtoAtualizado.preco = preco
         }
         if(categoria !== undefined) produtoAtualizado.
@@ -108,5 +109,28 @@ class produtoService {
         }
     }
 
-    
+    async deletarProduto(id) {
+        if(!id || isNaN(id)){
+            throw {
+                status:400,
+                mensagem: "id inválido."
+            }
+        }
+
+        const produto = await produtoRepository.buscarProdutoPorId(id)
+        if (!produto){
+            throw{
+                status:404,
+                mensagem: "Produto não encontrado."
+            }
+        }
+
+        await produtoRepository.deletarProdutoPorId(id)
+
+        return{
+            sucesso:true,
+            mensagem:"Produto apagado com sucesso."
+        }
+    }
 }
+modeule.exports = new produtoService()

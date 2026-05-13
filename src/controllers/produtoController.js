@@ -66,4 +66,4 @@ async cadastrar(req,res) {
 }
 }
 
-modeule.exports = new produtoController()
+module.exports = new produtoController()
